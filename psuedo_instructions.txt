@@ -1,0 +1,4 @@
+la lui ori
+li addiu
+bgt slt bne
+blt slt bne
