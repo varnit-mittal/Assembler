@@ -1,0 +1,116 @@
+ Address    Code        Basic                     Source
+
+0x00400000  0x0c100015  jal 0x00400054        21           jal warming #To welcome the user
+0x00400004  0x3c011001  lui $1,0x00001001     23           la $a0, optionMessage  #Menu based program where the user can encrypt or decrypt
+0x00400008  0x342400f9  ori $4,$1,0x000000f9       
+0x0040000c  0x0c10006f  jal 0x004001bc        24           jal printMessage
+0x00400010  0x3c011001  lui $1,0x00001001     26           la $a0, option1
+0x00400014  0x34240123  ori $4,$1,0x00000123       
+0x00400018  0x0c10006f  jal 0x004001bc        27           jal printMessage
+0x0040001c  0x3c011001  lui $1,0x00001001     29           la $a0, option2
+0x00400020  0x3424013a  ori $4,$1,0x0000013a       
+0x00400024  0x0c10006f  jal 0x004001bc        30           jal printMessage
+0x00400028  0x3c011001  lui $1,0x00001001     32           la $a0, enter
+0x0040002c  0x34240152  ori $4,$1,0x00000152       
+0x00400030  0x0c10006f  jal 0x004001bc        33           jal printMessage
+0x00400034  0x24020005  addiu $2,$0,0x0000000535           li $v0,5
+0x00400038  0x0000000c  syscall               36           syscall
+0x0040003c  0x00026821  addu $13,$0,$2        37           move $t5,$v0
+0x00400040  0x20090001  addi $9,$0,0x00000001 39           addi $t1,$zero,1
+0x00400044  0x11a90025  beq $13,$9,0x00000025 41           beq $t5, $t1, decrypt
+0x00400048  0x11a0001b  beq $13,$0,0x0000001b 42           beq $t5, $zero, encrypt
+0x0040004c  0x2402000a  addiu $2,$0,0x0000000a44           li $v0,10
+0x00400050  0x0000000c  syscall               45           syscall
+0x00400054  0x3c011001  lui $1,0x00001001     48           la $a0, welcome
+0x00400058  0x34240000  ori $4,$1,0x00000000       
+0x0040005c  0x23bdfffc  addi $29,$29,0xfffffff49           addi $sp, $sp,-4  #storing the stack pointer in the stack for returning from this procedure back to the main
+0x00400060  0xafbf0000  sw $31,0x00000000($29)50           sw $ra, 0($sp)
+0x00400064  0x0c10006f  jal 0x004001bc        52           jal printMessage
+0x00400068  0x3c011001  lui $1,0x00001001     54           la $a0, nameMessage
+0x0040006c  0x34240045  ori $4,$1,0x00000045       
+0x00400070  0x0c10006f  jal 0x004001bc        55           jal printMessage
+0x00400074  0x24020008  addiu $2,$0,0x0000000857           li $v0, 8
+0x00400078  0x3c011001  lui $1,0x00001001     58           la $a0, name
+0x0040007c  0x3424005e  ori $4,$1,0x0000005e       
+0x00400080  0x24050032  addiu $5,$0,0x0000003259           li $a1, 50
+0x00400084  0x0000000c  syscall               60           syscall
+0x00400088  0x3c011001  lui $1,0x00001001     62           la $a0, welcome2
+0x0040008c  0x34240090  ori $4,$1,0x00000090       
+0x00400090  0x0c10006f  jal 0x004001bc        63           jal printMessage
+0x00400094  0x3c011001  lui $1,0x00001001     65           la $a0, name
+0x00400098  0x3424005e  ori $4,$1,0x0000005e       
+0x0040009c  0x0c10006f  jal 0x004001bc        66           jal printMessage
+0x004000a0  0x3c011001  lui $1,0x00001001     68           la $a0, newLine
+0x004000a4  0x34240099  ori $4,$1,0x00000099       
+0x004000a8  0x0c10006f  jal 0x004001bc        69           jal printMessage
+0x004000ac  0x8fbf0000  lw $31,0x00000000($29)71           lw $ra, 0($sp)  #normalizing the sp register again to initial value
+0x004000b0  0x23bd0004  addi $29,$29,0x000000072           addi $sp,$sp,4
+0x004000b4  0x03e00008  jr $31                74           jr $ra
+0x004000b8  0x3c011001  lui $1,0x00001001     77           la $a0, encryptMessage
+0x004000bc  0x3424009b  ori $4,$1,0x0000009b       
+0x004000c0  0x0c10006f  jal 0x004001bc        78           jal printMessage
+0x004000c4  0x24020008  addiu $2,$0,0x0000000880           li $v0, 8
+0x004000c8  0x3c011001  lui $1,0x00001001     81           la $a0, message #taking input from the user
+0x004000cc  0x3424015a  ori $4,$1,0x0000015a       
+0x004000d0  0x240501f4  addiu $5,$0,0x000001f482           li $a1, 500
+0x004000d4  0x0000000c  syscall               83           syscall
+0x004000d8  0x08100040  j 0x00400100          85           j logic
+0x004000dc  0x3c011001  lui $1,0x00001001     88           la $a0, decryptMessage
+0x004000e0  0x342400ca  ori $4,$1,0x000000ca       
+0x004000e4  0x0c10006f  jal 0x004001bc        89           jal printMessage
+0x004000e8  0x24020008  addiu $2,$0,0x0000000891           li $v0, 8
+0x004000ec  0x3c011001  lui $1,0x00001001     92           la $a0, message
+0x004000f0  0x3424015a  ori $4,$1,0x0000015a       
+0x004000f4  0x240501f4  addiu $5,$0,0x000001f493           li $a1, 500
+0x004000f8  0x0000000c  syscall               94           syscall
+0x004000fc  0x08100040  j 0x00400100          96           j logic
+0x00400100  0x3c011001  lui $1,0x00001001     99           la $a0, message
+0x00400104  0x3424015a  ori $4,$1,0x0000015a       
+0x00400108  0x3c011001  lui $1,0x00001001     100          la $a1, output
+0x0040010c  0x3425034e  ori $5,$1,0x0000034e       
+0x00400110  0x80880000  lb $8,0x00000000($4)  103              lb $t0, 0($a0)
+0x00400114  0x1100001c  beq $8,$0,0x0000001c  104              beqz $t0, exit
+0x00400118  0x2409007a  addiu $9,$0,0x0000007a106              li $t1, 122
+0x0040011c  0x200a0061  addi $10,$0,0x00000061107              addi $t2, $zero, 97
+0x00400120  0x0128082a  slt $1,$9,$8          109              bgt $t0, $t1, notLowercase
+0x00400124  0x14200008  bne $1,$0,0x00000008       
+0x00400128  0x010a082a  slt $1,$8,$10         110              blt $t0, $t2, notLowercase
+0x0040012c  0x14200006  bne $1,$0,0x00000006       
+0x00400130  0x01495820  add $11,$10,$9        112              add $t3, $t2, $t1
+0x00400134  0x01684022  sub $8,$11,$8         113              sub $t0, $t3, $t0
+0x00400138  0xa0a80000  sb $8,0x00000000($5)  115              sb $t0, 0($a1)
+0x0040013c  0x20840001  addi $4,$4,0x00000001 116              addi $a0, $a0, 1
+0x00400140  0x20a50001  addi $5,$5,0x00000001 117              addi $a1, $a1, 1
+0x00400144  0x08100044  j 0x00400110          119              j while
+0x00400148  0x24090041  addiu $9,$0,0x00000041122          li $t1, 65
+0x0040014c  0x200a005a  addi $10,$0,0x0000005a123          addi $t2, $zero, 90
+0x00400150  0x0148082a  slt $1,$10,$8         124          bgt $t0, $t2, notUppercase
+0x00400154  0x14200008  bne $1,$0,0x00000008       
+0x00400158  0x0109082a  slt $1,$8,$9          125          blt $t0, $t1, notUppercase
+0x0040015c  0x14200006  bne $1,$0,0x00000006       
+0x00400160  0x01495820  add $11,$10,$9        126          add $t3, $t2, $t1
+0x00400164  0x01684022  sub $8,$11,$8         127          sub $t0, $t3, $t0
+0x00400168  0xa0a80000  sb $8,0x00000000($5)  128          sb $t0, 0($a1)
+0x0040016c  0x20840001  addi $4,$4,0x00000001 129          addi $a0, $a0, 1
+0x00400170  0x20a50001  addi $5,$5,0x00000001 130          addi $a1, $a1, 1
+0x00400174  0x08100044  j 0x00400110          131          j while
+0x00400178  0xa0a80000  sb $8,0x00000000($5)  134          sb $t0, 0($a1)
+0x0040017c  0x20840001  addi $4,$4,0x00000001 135          addi $a0, $a0, 1
+0x00400180  0x20a50001  addi $5,$5,0x00000001 136          addi $a1, $a1, 1
+0x00400184  0x08100044  j 0x00400110          137          j while
+0x00400188  0x24080000  addiu $8,$0,0x00000000140          li $t0, 0
+0x0040018c  0xa0a80000  sb $8,0x00000000($5)  141          sb $t0, ($a1)
+0x00400190  0x3c011001  lui $1,0x00001001     143          la $a0, outputMessage
+0x00400194  0x34240542  ori $4,$1,0x00000542       
+0x00400198  0x0c10006f  jal 0x004001bc        144          jal printMessage
+0x0040019c  0x3c011001  lui $1,0x00001001     146          la $a0, output
+0x004001a0  0x3424034e  ori $4,$1,0x0000034e       
+0x004001a4  0x0c10006f  jal 0x004001bc        147          jal printMessage
+0x004001a8  0x3c011001  lui $1,0x00001001     149          la $a0, newLine
+0x004001ac  0x34240099  ori $4,$1,0x00000099       
+0x004001b0  0x0c10006f  jal 0x004001bc        150          jal printMessage
+0x004001b4  0x2402000a  addiu $2,$0,0x0000000a152          li $v0,10
+0x004001b8  0x0000000c  syscall               153          syscall
+0x004001bc  0x24020004  addiu $2,$0,0x00000004156          li $v0, 4
+0x004001c0  0x0000000c  syscall               157          syscall
+0x004001c4  0x03e00008  jr $31                158          jr $ra

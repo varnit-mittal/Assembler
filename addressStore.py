@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def hexa(i):
     s=format(i,'08x')
     return '0x'+s
@@ -15,10 +16,9 @@ Jinst={}
 branch={}
 procedure={}
 
-df = pd.DataFrame()
+# df = pd.DataFrame()
 
 machine={}
-
 
 inst=open('./instructions.txt','r')
 pinst=open('./psuedo_instructions.txt','r')
@@ -80,21 +80,20 @@ def storeAddress():
                 # print(t)
                 if(t[0][-1]==":"):
                     proc=1
-                    procName=x[:-1]
+                    procName=t[0][:-1]
                     continue
 
                 instTrue=False
                 for row in inst: 
                     temp=row.split()
-                    # print(temp[0],t[0])
                     if(temp[0]==t[0]):
                         instTrue=True
                         add=int(instAddress,16)
                         instruct[t[0]]=hexa(add)
-                        # print(t[0],instruct[t[0]])
                         add+=4
                         instAddress=hexa(add)
                         address.append(instruct[t[0]])
+                        # print(t[0],instruct[t[0]])
                         if(temp[0]=='jr' or temp[0]=='lb' or temp[0]=='sb' or temp[0]=='lw' or temp[0]=='syscall' or temp[0]=='beqz' or temp[0]=='sw' or temp[0]=='move'):
                             machine[t[0]]=temp[1]
                             if(proc==1):
@@ -169,13 +168,11 @@ def storeAddress():
 pinst.seek(0)
 inst.seek(0)
 fp.seek(0)
-reg=open('./registers.txt','r')
-def machineCode():
-    ...
+# reg=open('./registers.txt','r')
 
-
-
+              
 storeAddress()
-print(procedure)
-df['Address']=address
-print(df)
+# print(address)
+# print(procedure)
+# df['Address']=address
+# print(df)
